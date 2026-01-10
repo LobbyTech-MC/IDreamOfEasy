@@ -100,15 +100,8 @@
         <dependency>
             <groupId>com.github.SlimefunGuguProject</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>2024.3.1</version>
+            <version>2025.1</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.baked-libs</groupId>
-            <artifactId>dough-api</artifactId>
-            <version>1.2.0</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -147,7 +140,7 @@
         <dependency>
             <groupId>net.guizhanss</groupId>
             <artifactId>GuizhanLibPlugin</artifactId>
-            <version>2.1.0</version>
+            <version>2.5.0</version>
             <scope>provided</scope>
         </dependency>
 
