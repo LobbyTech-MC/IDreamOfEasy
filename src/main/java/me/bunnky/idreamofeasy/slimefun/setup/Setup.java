@@ -7,14 +7,20 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.implementation.items.electric.Capacitor;
+import io.github.thebusybiscuit.slimefun4.implementation.items.electric.generators.SolarGenerator;
+import io.github.thebusybiscuit.slimefun4.implementation.items.gps.GPSTransmitter;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import lombok.experimental.UtilityClass;
 import me.bunnky.idreamofeasy.IDreamOfEasy;
+import me.bunnky.idreamofeasy.slimefun.items.AlarmClock;
 import me.bunnky.idreamofeasy.slimefun.items.BiomeCompass;
 import me.bunnky.idreamofeasy.slimefun.items.Chisel;
 import me.bunnky.idreamofeasy.slimefun.items.ElectricExplosivePickaxe;
 import me.bunnky.idreamofeasy.slimefun.items.ElectricExplosiveShovel;
+import me.bunnky.idreamofeasy.slimefun.items.TomeOfEnlightenment;
+import me.bunnky.idreamofeasy.slimefun.items.SlimeMeal;
 import me.bunnky.idreamofeasy.slimefun.items.idols.TerranIdol;
 import me.bunnky.idreamofeasy.slimefun.items.idols.FlameheartIdol;
 import me.bunnky.idreamofeasy.slimefun.items.Jawn;
@@ -23,6 +29,7 @@ import me.bunnky.idreamofeasy.slimefun.items.Magnetoid;
 import me.bunnky.idreamofeasy.slimefun.items.idols.DivineIdol;
 import me.bunnky.idreamofeasy.slimefun.items.idols.TorrentIdol;
 import me.bunnky.idreamofeasy.slimefun.machines.ElectricCable;
+import me.bunnky.idreamofeasy.slimefun.machines.ElectricPoisonExtractor;
 import me.bunnky.idreamofeasy.slimefun.machines.ElectricShearer;
 import me.bunnky.idreamofeasy.slimefun.machines.PlayerHopper;
 import me.bunnky.idreamofeasy.slimefun.machines.StackDispenser;
@@ -59,6 +66,9 @@ import org.bukkit.potion.PotionEffectType;
 public class Setup {
     private static final String TRIM_VAULT = "9d6f99f3c5d982ebde8da657d0652aa08064bf6d6b495fda23c6e47123c093e7";
     private static final String REPELLER = "10892dff2ad75e47b08bf637d8dd2d10ed767f80b8144d5eda5db4d2e18614d8";
+    private static final String CREATIVE_TRANSMITTER = "93e2f779147bc025487b27a37b7fc516d7489c589df97016eb8dc0f54d3bf29e";
+    private static final String CREATIVE_CAPACITOR = "621197e53c1ab112e68079d3c83fa4714c77a83d0621a29d762e99e9feaae4d5";
+    private static final String CREATIVE_GENERATOR = "56a7d2195ff7674bbb12e2f7578a2a63c54a980e64744450ac6656e05a790499";
 
     public static void setup() {
 
@@ -127,7 +137,6 @@ public class Setup {
             "",
             "&f站在该漏斗下方会自动",
             "&f接收物品到你的物品栏",
-            "",
             "",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
             LoreBuilder.powerPerSecond(250)
@@ -334,6 +343,19 @@ public class Setup {
             "",
             LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE),
             LoreBuilder.powerPerSecond(120)
+        );
+
+        SlimefunItemStack electricPoisonExtractor = new SlimefunItemStack(
+            "IDOE_ELECTRIC_POISON_EXTRACTOR",
+            Material.GREEN_GLAZED_TERRACOTTA,
+            "&a电力毒药提取器",
+            "",
+            "&f使用材料和玻璃瓶",
+            "&f制作剧毒药水",
+            "",
+            LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE),
+            LoreBuilder.speed(4),
+            LoreBuilder.powerPerSecond(80)
         );
 
         SlimefunItemStack zombieRepeller = new SlimefunItemStack(
@@ -569,6 +591,42 @@ public class Setup {
             "&e右键点击&7进行搜索"
         );
 
+        SlimefunItemStack slimeMeal = new SlimefunItemStack(
+            "IDOE_SLIMEMEAL",
+            Material.SLIME_BALL,
+            "&a史莱姆增生餐",
+            "",
+            "&f对史莱姆使用",
+            "&f可增大其体积",
+            "",
+            "&8⇨ &a长大吧，超级史莱姆们！",
+            "",
+            LoreBuilder.RIGHT_CLICK_TO_USE
+        );
+
+        SlimefunItemStack alarmClock = new SlimefunItemStack(
+            "IDOE_ALARM_CLOCK",
+            Material.CLOCK,
+            "&a闹钟",
+            "",
+            "&e右键点击&7设置计时器",
+            "&e蹲下 + 右键点击&7切换闹钟模式"
+        );
+
+        SlimefunItemStack tomeOfEnlightenment = new SlimefunItemStack(
+            "IDOE_TOME_OF_ENLIGHTENMENT",
+            Material.ENCHANTED_BOOK,
+            "&a启蒙之书",
+            "",
+            "&f将&n随机&r&f知识",
+            "&f直接灌输进你的脑袋",
+            "&f跳过了那些沉闷的研究步骤",
+            "",
+            "&8⇨ &a瞬间研究",
+            "",
+            "&e右键点击&7以使用"
+        );
+
         SlimefunItemStack flameheartIdol = new SlimefunItemStack(
             "IDOE_IDOL_FLAMEHEART",
             Material.BLAZE_POWDER,
@@ -629,11 +687,6 @@ public class Setup {
             "&c防火"
         );
 
-        SlimefunItemStack enchantedGoldenApple = new SlimefunItemStack(
-            "IDOE_ENCHANTED_GOLDEN_APPLE",
-            new ItemStack(Material.ENCHANTED_GOLDEN_APPLE)
-        );
-
         SlimefunItemStack badOmenPotion = new SlimefunItemStack(
             "IDOE_POTION_BAD_OMEN",
             Color.BLACK,
@@ -641,6 +694,46 @@ public class Setup {
             "&a不详药水"
         );
         IDOEUtility.setGlow(badOmenPotion);
+
+        SlimefunItemStack creativeTransmitter = new SlimefunItemStack(
+            "IDOE_CREATIVE_TRANSMITTER",
+            CREATIVE_TRANSMITTER,
+            "&a创造 GPS 发射器",
+            "",
+            "&f一个可以几乎提供无限",
+            "&fGPS 复杂度的发射器",
+            "",
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
+            LoreBuilder.powerPerSecond(2),
+            "",
+            "&7仅能通过&e/sf cheat &7获取"
+        );
+        IDOEUtility.setGlow(creativeTransmitter);
+
+        SlimefunItemStack creativeCapacitor = new SlimefunItemStack(
+            "IDOE_CREATIVE_CAPACITOR",
+            CREATIVE_CAPACITOR,
+            "&a创造电容",
+            LoreBuilder.range(6),
+            "",
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.CAPACITOR),
+            "&8⇨ &e⚡ &7 " + Integer.MAX_VALUE + " 可储存",
+            "",
+            "&7仅能通过&e/sf cheat &7获取"
+        );
+        IDOEUtility.setGlow(creativeCapacitor);
+
+        SlimefunItemStack creativeGenerator = new SlimefunItemStack(
+            "IDOE_CREATIVE_GENERATOR",
+            CREATIVE_GENERATOR,
+            "&a创造发电机",
+            "",
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
+            LoreBuilder.powerPerSecond(Integer.MAX_VALUE),
+            "",
+            "&7仅能通过&e/sf cheat &7获取"
+        );
+        IDOEUtility.setGlow(creativeGenerator);
 
         //########################
         //  RECIPES
@@ -763,6 +856,12 @@ public class Setup {
             SlimefunItems.GOLD_22K, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.GOLD_22K
         };
 
+        ItemStack[] electricPoisonExtractorRecipe = {
+            null, SlimefunItems.HARDENED_GLASS, null,
+            SlimefunItems.CARBONADO, SlimefunItems.AUTO_BREWER, SlimefunItems.CARBONADO,
+            SlimefunItems.CORINTHIAN_BRONZE_INGOT, SlimefunItems.CORINTHIAN_BRONZE_INGOT, SlimefunItems.CORINTHIAN_BRONZE_INGOT
+        };
+
         ItemStack[] zombieRepellerRecipe = {
             new ItemStack(Material.NETHERITE_SWORD), new ItemStack(Material.ZOMBIE_HEAD), SlimefunItems.GRAPPLING_HOOK,
             SlimefunItems.MAGICAL_GLASS, SlimefunItems.NECROTIC_SKULL, SlimefunItems.MAGICAL_GLASS,
@@ -874,10 +973,28 @@ public class Setup {
             null, SlimefunItems.SYNTHETIC_DIAMOND, null,
         };
 
+        ItemStack[] slimeMealRecipe = {
+            new ItemStack(Material.BONE_MEAL), new ItemStack(Material.BONE_MEAL), new ItemStack(Material.BONE_MEAL),
+            new ItemStack(Material.BONE_MEAL), new ItemStack(Material.SLIME_BALL), new ItemStack(Material.BONE_MEAL),
+            new ItemStack(Material.BONE_MEAL), new ItemStack(Material.BONE_MEAL), new ItemStack(Material.BONE_MEAL)
+        };
+
+        ItemStack[] alarmClockRecipe = {
+            null, SlimefunItems.SOLAR_PANEL, null,
+            SlimefunItems.REDSTONE_ALLOY, new ItemStack(Material.CLOCK), SlimefunItems.REDSTONE_ALLOY,
+            null, SlimefunItems.SMALL_CAPACITOR, null
+        };
+
+        ItemStack[] tomeOfEnlightenmentRecipe = {
+            null, new ItemStack(Material.FEATHER), null,
+            new ItemStack(Material.LAPIS_LAZULI), new ItemStack(Material.WRITABLE_BOOK), new ItemStack(Material.LAPIS_LAZULI),
+            null, new ItemStack(Material.BLACK_DYE), null
+        };
 
         //////////////////////////////////////////////
         /////////////////// IDOLS ////////////////////
         //////////////////////////////////////////////
+
         ItemStack[] flamheartIdolRecipe = {
             SlimefunItem.getById("ENDER_LAVA_TALISMAN").getItem(), SlimefunItems.TALISMAN_LAVA, SlimefunItem.getById("ENDER_WARRIOR_TALISMAN").getItem(),
             SlimefunItems.TALISMAN_WARRIOR, SlimefunItems.BOOSTED_URANIUM, SlimefunItems.TALISMAN_KNIGHT,
@@ -900,12 +1017,6 @@ public class Setup {
             SlimefunItem.getById("ENDER_MAGICIAN_TALISMAN").getItem(), SlimefunItems.TALISMAN_MAGICIAN, SlimefunItem.getById("ENDER_WIZARD_TALISMAN").getItem(),
             SlimefunItems.TALISMAN_WIZARD, SlimefunItems.BOOSTED_URANIUM, SlimefunItems.TALISMAN_WISE,
             SlimefunItem.getById("ENDER_WISE_TALISMAN").getItem(), SlimefunItems.TALISMAN_ANVIL, SlimefunItem.getById("ENDER_ANVIL_TALISMAN").getItem()
-        };
-
-        ItemStack[] enchantedGoldenAppleRecipe = {
-            SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK,
-            SlimefunItems.GOLD_24K_BLOCK, new ItemStack(Material.APPLE), SlimefunItems.GOLD_24K_BLOCK,
-            SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK
         };
 
         ItemStack[] badOmenPotionRecipe = {
@@ -942,6 +1053,7 @@ public class Setup {
         SlimefunItem electricLogStripperItem3 = new ElectricLogStripper(group, electricLogStripper3, RecipeType.ENHANCED_CRAFTING_TABLE, electricLogStripperRecipe3).setCapacity(1024).setEnergyConsumption(60).setProcessingSpeed(8);
 
         SlimefunItem electricShearerItem = new ElectricShearer(group, electricShearer, RecipeType.ENHANCED_CRAFTING_TABLE, electricShererRecipe, 120, 1024, 4);
+        SlimefunItem electricPoisonExtractorItem = new ElectricPoisonExtractor(group, electricPoisonExtractor, RecipeType.ENHANCED_CRAFTING_TABLE, electricPoisonExtractorRecipe).setCapacity(1024).setEnergyConsumption(48).setProcessingSpeed(4);
 
         SlimefunItem zombieRepellerItem = new ZombieRepeller(group, zombieRepeller, RecipeType.ENHANCED_CRAFTING_TABLE, zombieRepellerRecipe, 250, 1200);
         SlimefunItem spiderRepellerItem = new SpiderRepeller(group, spiderRepeller, RecipeType.ENHANCED_CRAFTING_TABLE, spiderRepellerRecipe, 250, 1200);
@@ -962,14 +1074,29 @@ public class Setup {
         SlimefunItem chiselItem = new Chisel(group, chisel, RecipeType.MAGIC_WORKBENCH, chiselRecipe, 250);
         SlimefunItem electricPickItem = new ElectricExplosivePickaxe(group, electricPick, RecipeType.MAGIC_WORKBENCH, electricPickRecipe, 700);
         SlimefunItem electricShovelItem = new ElectricExplosiveShovel(group, electricShovel, RecipeType.MAGIC_WORKBENCH, electricShovelRecipe, 900);
+        SlimefunItem slimeMealItem = new SlimeMeal(group, slimeMeal, RecipeType.MAGIC_WORKBENCH, slimeMealRecipe);
+        SlimefunItem alarmClockItem = new AlarmClock(group, alarmClock, RecipeType.MAGIC_WORKBENCH, alarmClockRecipe);
+        SlimefunItem tomeOfEnlightenmentItem = new TomeOfEnlightenment(group, tomeOfEnlightenment, RecipeType.ENHANCED_CRAFTING_TABLE, tomeOfEnlightenmentRecipe);
 
-        SlimefunItem enchantedGoldenAppleItem = new SlimefunItem(group, enchantedGoldenApple, RecipeType.ANCIENT_ALTAR, enchantedGoldenAppleRecipe);
         SlimefunItem badOmenPotionItem = new SlimefunItem(group, badOmenPotion, RecipeType.JUICER, badOmenPotionRecipe);
 
         SlimefunItem flameheartIdolItem = new FlameheartIdol(group, flameheartIdol, RecipeType.MAGIC_WORKBENCH, flamheartIdolRecipe);
         SlimefunItem torrentIdolItem = new TorrentIdol(group, torrentIdol, RecipeType.MAGIC_WORKBENCH, torrentIdolRecipe);
         SlimefunItem terranIdolItem = new TerranIdol(group, terranIdol, RecipeType.MAGIC_WORKBENCH, terranIdolRecipe);
         SlimefunItem divineIdolItem = new DivineIdol(group, divineIdol, RecipeType.MAGIC_WORKBENCH, divineIdolRecipe);
+
+        SlimefunItem creativeTransmitterItem = new GPSTransmitter(group, 9001, creativeTransmitter, RecipeType.NULL, null) {
+            @Override
+            public int getMultiplier(int y) {
+                return Integer.MAX_VALUE;
+            }
+            @Override
+            public int getEnergyConsumption() {
+                return 1;
+            }
+        };
+        SlimefunItem creativeCapacitorItem = new Capacitor(group, Integer.MAX_VALUE, creativeCapacitor, RecipeType.NULL, null);
+        SlimefunItem creativeGeneratorItem = new SolarGenerator(group, Integer.MAX_VALUE, Integer.MAX_VALUE, creativeGenerator, RecipeType.NULL, null);
 
         //########################
         //  REGISTER
@@ -1000,8 +1127,10 @@ public class Setup {
         chiselItem.register(plugin);
         electricPickItem.register(plugin);
         electricShovelItem.register(plugin);
+        slimeMealItem.register(plugin);
+        alarmClockItem.register(plugin);
+        tomeOfEnlightenmentItem.register(plugin);
 
-        enchantedGoldenAppleItem.register(plugin);
         badOmenPotionItem.register(plugin);
 
         radiationabsorber.register(plugin);
@@ -1020,6 +1149,7 @@ public class Setup {
         electricLogStripperItem2.register(plugin);
         electricLogStripperItem3.register(plugin);
 
+        electricPoisonExtractorItem.register(plugin);
         electricShearerItem.register(plugin);
 
         zombieRepellerItem.register(plugin);
@@ -1031,5 +1161,9 @@ public class Setup {
         batRepellerItem.register(plugin);
         endermanRepellerItem.register(plugin);
         witchRepellerItem.register(plugin);
+
+        creativeTransmitterItem.register(plugin);
+        creativeCapacitorItem.register(plugin);
+        creativeGeneratorItem.register(plugin);
     }
 }
